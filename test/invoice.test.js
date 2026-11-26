@@ -43,3 +43,20 @@ test('formatCents', () => {
   assert.equal(formatCents(5), '0.05');
   assert.equal(formatCents(-199), '-1.99');
 });
+
+test('DE is taxed at 19%', () => {
+  const r = calculateInvoice({ region: 'DE', lines: [line('A', 1, 10000)] });
+  assert.equal(r.subtotalCents, 10000);
+  assert.equal(r.taxCents, 1900);
+  assert.equal(r.totalCents, 11900);
+});
+
+test('DE tax is rounded half up', () => {
+  const r = calculateInvoice({ region: 'DE', lines: [line('A', 1, 50)] });
+  assert.equal(r.taxCents, 10); // 9.5 rounds to 10
+  assert.equal(r.totalCents, 60);
+});
+
+test('lowercase de is still refused', () => {
+  assert.throws(() => calculateInvoice({ region: 'de', lines: [line('A', 1, 100)] }), /Unknown tax region: de/);
+});

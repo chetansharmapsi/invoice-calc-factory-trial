@@ -22,6 +22,7 @@ Owner: billing team. These are the rules the business has agreed. Code follows t
 | IN | 18% |
 | UK | 20% |
 | US | 0% |
+| DE | 19% |
 
 An invoice for a region not in this table must be refused. Charging zero tax by mistake is worse
 than refusing the invoice.
