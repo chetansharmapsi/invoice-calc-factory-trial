@@ -1,0 +1,9 @@
+{
+  "name": "invoice-calc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Invoice totals for the billing team's internal tools.",
+  "main": "src/index.js",
+  "scripts": { "test": "node --test" },
+  "engines": { "node": ">=18" }
+}
