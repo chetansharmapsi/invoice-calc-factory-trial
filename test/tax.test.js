@@ -25,3 +25,18 @@ test('IN, UK and US rates are unchanged', () => {
   assert.equal(taxFor(10000, 'UK'), 2000);
   assert.equal(taxFor(10000, 'US'), 0);
 });
+
+test('ES is accepted at 21%', () => {
+  assert.equal(taxFor(10000, 'ES'), 2100);
+});
+
+test('invoice of 10000 cents for ES has tax 2100 and total 12100', () => {
+  const r = calculateInvoice({ region: 'ES', lines: [{ description: 'Widget', quantity: 1, unitPriceCents: 10000 }] });
+  assert.equal(r.subtotalCents, 10000);
+  assert.equal(r.taxCents, 2100);
+  assert.equal(r.totalCents, 12100);
+});
+
+test('lowercase es is refused like any unknown region', () => {
+  assert.throws(() => taxFor(10000, 'es'), { message: 'Unknown tax region: es' });
+});
